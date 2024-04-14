@@ -226,5 +226,5 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
         }
     }
 
-
+//
 }
