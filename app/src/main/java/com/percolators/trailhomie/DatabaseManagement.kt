@@ -33,6 +33,7 @@ object DatabaseManagement{
             theSubmission.put("newCondition", newCondition)
             theSubmission.put("submitted", FieldValue.serverTimestamp())
             Firebase.firestore.collection("humboldt_trails").document(currDoc.id).collection("reports").add(theSubmission)
+            Log.d(TAG,"Success maybe adding -> ${theSubmission}")
         }
     }
 

@@ -34,7 +34,8 @@ import androidx.compose.ui.text.style.TextOverflow
 
 
 var end = false
-object Timer: CountDownTimer(15000, 1000) {
+
+object Timer: CountDownTimer(10000, 1000) {
 
     override fun onTick(millisUntilFinished: Long) {
     }
@@ -51,14 +52,16 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
     val theTrail = TrailList.searchByName(trailToReport)
     val conditionMap = mapOf(0L to (R.drawable.mud_boot),1L to (R.drawable.flat_boot), -1L to (R.drawable.water_boot))
     var color by remember { mutableLongStateOf( -6) }
-
-    if(end == true){
-        DatabaseManagement.sendReport(trailToReport,color)
+    var hasSubmitted by remember {
+        mutableIntStateOf(0)
     }
+
+    if(end)
+    {DatabaseManagement.sendReport(trailToReport,color)}
 
     Box {
         imageMap[trailToReport]?.let { painterResource(id = it) }
-            ?.let { Image(painter = it, contentDescription = "", contentScale = ContentScale.Crop) }
+            ?.let { Image(painter = it, contentDescription = "", contentScale = ContentScale.FillHeight) }
         Column(
             modifier = Modifier
                 .fillMaxHeight()
@@ -150,14 +153,17 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                     },
                     shape = CircleShape,
                     onClick = {
-                        while (!end) {
+                        if (!end) {
                             if (color == -6L) {
                                 Timer.start()
                             }
                             if (color != -1L) {
                                 color = -1L
-                                break
                             }
+                        }
+                        else if(hasSubmitted == 0){
+                            DatabaseManagement.sendReport(trailToReport,color)
+                            hasSubmitted = 1
                         }
                     }
                 )
@@ -180,14 +186,18 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                     },
                     shape = CircleShape,
                     onClick = {
-                        while (!end) {
+                        if (!end) {
                             if (color == -6L) {
                                 Timer.start()
                             }
                             if (color != 0L) {
                                 color = 0L
-                                break
+
                             }
+                        }
+                        else if(hasSubmitted == 0){
+                            DatabaseManagement.sendReport(trailToReport,color)
+                            hasSubmitted = 1
                         }
                     }
                 )
@@ -210,14 +220,18 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                     },
                     shape = CircleShape,
                     onClick = {
-                        while (!end) {
+                        if (!end) {
                             if (color == -6L) {
                                 Timer.start()
                             }
                             if (color != 1L) {
                                 color = 1L
-                                break
+
                             }
+                        }
+                        else if(hasSubmitted == 0){
+                            DatabaseManagement.sendReport(trailToReport,color)
+                            hasSubmitted = 1
                         }
                     }
                 )
