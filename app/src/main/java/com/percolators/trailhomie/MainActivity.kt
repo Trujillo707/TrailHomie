@@ -17,7 +17,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var listOfTrail = mutableListOf<Trail>(Trail("Foobar Trail", 25F, 2))
+        TrailList.addTrail(Trail("Foobar Trail", 55F, 2))
+        TrailList.addTrail(Trail("Banana test", 68F, 1))
 
         setContent {
             TrailHomieTheme {
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color(red = 245, green = 243, blue = 231)
                 ) {
-                    HomeScreen(listOfTrail)
+                    Navigation()
                 }
             }
         }
@@ -37,9 +38,9 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    var listOfTrail = mutableListOf<Trail>(Trail("Foobar Trail", 25F, 2),
-        Trail("Banana test", 48F, 1))
+    TrailList.addTrail(Trail("Foobar Trail", 55F, 2))
+    TrailList.addTrail(Trail("Banana test", 68F, 1))
     TrailHomieTheme {
-        HomeScreen(listOfTrail)
+        Navigation()
     }
 }
