@@ -3,6 +3,9 @@ package com.percolators.trailhomie
 import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.util.Log
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -11,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -29,14 +33,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.firestore
-import kotlinx.coroutines.tasks.await
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -98,13 +105,19 @@ fun HomeScreen(navController: NavController){
         }
     }
 }
-
-val imageMap = mapOf("Hammond Coastal Trail" to (R.drawable.hammond_coastal_trail))
+val imageMap = mapOf(
+                    ("Arcata Community Forest" to (R.drawable.arcata_community_forest)),
+                    ("Avenue of the Giants" to (R.drawable.avenue_of_the_giants)),
+                    ("Hammond Coastal Trail" to (R.drawable.hammond_coastal_trail)),
+                    ("Sequoia Park" to (R.drawable.sequoia_park)),
+                    ("Sue-meg State Park" to (R.drawable.sue_meg_state_park)))
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrailCard(aTrail: Trail, navController: NavController){
+    val conditionMap = mapOf(0L to (R.drawable.mud_boot),1L to (R.drawable.flat_boot), -1L to (R.drawable.water_boot))
+
     ElevatedCard(
         modifier = Modifier
             .padding(horizontal = 4.dp, vertical = 4.dp)
@@ -115,30 +128,49 @@ fun TrailCard(aTrail: Trail, navController: NavController){
             navController.navigate(NavScreen.ReportScreen.route + "/${aTrail.getName()}/${aTrail.getCondition()}")
         }
     ) {
-        Row {
-            Text(
-                modifier = Modifier
-                    .padding(4.dp),
-                text = aTrail.getName(),
-                fontSize = 32.sp,
-            )
+        Box (modifier = Modifier.
+            fillMaxHeight(0.20f)
+        )
 
-        }
-        Row {
-            Spacer(modifier = Modifier.weight(1f))
-            Text(modifier = Modifier
-                .padding(horizontal = 4.dp),
-                text = "Distance")
-        }
-        Row {
-            Spacer(modifier = Modifier.weight(1f))
-            Text(modifier = Modifier
-                .padding(horizontal = 4.dp),
-                text = "${aTrail.getDistance()}")
-        }
-        Row {
-            Text(modifier = Modifier.padding(horizontal = 4.dp),
-                text = "Condition: ${aTrail.getCondition()}")
+        {
+            imageMap[aTrail.getName()]?.let { painterResource(id = it) }
+                ?.let { Image(painter = it, contentDescription = "",
+                    contentScale = ContentScale.FillBounds, modifier = Modifier.matchParentSize())}
+            Column () {
+                Row {
+                    Text(
+                        modifier = Modifier
+                            .padding(4.dp),
+                        text = aTrail.getName(),
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        style = TextStyle(shadow = Shadow(color = Color.Black, blurRadius = 10f)),
+                        color = Color.White
+                    )
+
+                }
+                Row {
+                    Text(
+                        modifier = Modifier
+                            .weight(1.5f)
+                            .padding(4.dp),
+                        color = Color.White,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        style = TextStyle(shadow = Shadow(color = Color.Black, blurRadius = 10f)),
+                        text = "Distance: ${aTrail.getDistance()}"
+                    )
+                    Spacer(modifier = Modifier.weight(1.5f))
+                    Image(
+                        painter = painterResource(conditionMap[aTrail.getCondition()]!!),
+                        contentDescription = "trail Image",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .weight(1f)
+                            .clip(CircleShape)
+                    )
+                }
+            }
         }
     }
 }
