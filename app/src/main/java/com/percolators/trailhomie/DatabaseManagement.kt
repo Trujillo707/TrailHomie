@@ -43,5 +43,3 @@ class DatabaseManagement{
 
     }
 }
-
-@Composable
