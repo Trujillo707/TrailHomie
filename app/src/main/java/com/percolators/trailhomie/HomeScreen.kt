@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -48,7 +49,11 @@ fun HomeScreen(navController: NavController){
         topBar = {
             TopAppBar(
                 title = {
+                    Row {
+                        Text(text = "TrailHomie", color = Color.White)
+                        Spacer(modifier = Modifier.weight(1f))
                         Text(text = "Filter", color = Color.White)
+                    }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = Color(red =0 , green = 76, blue = 70)
@@ -73,8 +78,10 @@ fun HomeScreen(navController: NavController){
     ) {paddingValues ->
         LazyColumn(modifier = Modifier
             .padding(paddingValues)
+            .fillMaxHeight()
         ) {
-            while (TrailList.getSize() != 3){
+            // Magic Number TODO:Dont do that
+            while (TrailList.getSize() != 5){
                 continue
             }
             items(TrailList.sortedDistance()){trail->
@@ -100,7 +107,7 @@ fun TrailCard(aTrail: Trail, navController: NavController){
     ElevatedCard(
         modifier = Modifier
             .padding(horizontal = 4.dp, vertical = 4.dp)
-            .height(120.dp)
+            .fillMaxHeight()
             .fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color(red = 212, green = 169, blue = 219 )),
         onClick = {
