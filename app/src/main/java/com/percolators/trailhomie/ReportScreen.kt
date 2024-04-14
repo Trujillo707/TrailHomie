@@ -24,6 +24,7 @@ import androidx.compose.ui.layout.ContentScale
 import android.os.CountDownTimer
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -33,7 +34,7 @@ import androidx.compose.ui.text.style.TextOverflow
 
 
 var end = false
-object Timer: CountDownTimer(30000, 1000) {
+object Timer: CountDownTimer(15000, 1000) {
 
     override fun onTick(millisUntilFinished: Long) {
     }
@@ -49,10 +50,10 @@ object Timer: CountDownTimer(30000, 1000) {
 fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavController) {
     val theTrail = TrailList.searchByName(trailToReport)
     val conditionMap = mapOf(0L to (R.drawable.mud_boot),1L to (R.drawable.flat_boot), -1L to (R.drawable.water_boot))
-    var color by remember { mutableIntStateOf( -1) }
+    var color by remember { mutableLongStateOf( -6) }
 
     if(end == true){
-        DatabaseManagement.sendReport(trailToReport,color - 2L)
+        DatabaseManagement.sendReport(trailToReport,color)
     }
 
     Box {
@@ -142,7 +143,7 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
             ) {
                 ElevatedCard(modifier = Modifier
                     .weight(1f),
-                    colors = if (color == 1) {
+                    colors = if (color == -1L) {
                         CardDefaults.cardColors(containerColor = Color.White)
                     } else {
                         CardDefaults.cardColors(containerColor = Color.Gray)
@@ -150,11 +151,11 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                     shape = CircleShape,
                     onClick = {
                         while (!end) {
-                            if (color == -1) {
+                            if (color == -6L) {
                                 Timer.start()
                             }
-                            if (color != 1) {
-                                color = 1
+                            if (color != -1L) {
+                                color = -1L
                                 break
                             }
                         }
@@ -172,7 +173,7 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                 }
                 ElevatedCard(modifier = Modifier
                     .weight(1f),
-                    colors = if (color == 2) {
+                    colors = if (color == 0L) {
                         CardDefaults.cardColors(containerColor = Color.White)
                     } else {
                         CardDefaults.cardColors(containerColor = Color.Gray)
@@ -180,11 +181,11 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                     shape = CircleShape,
                     onClick = {
                         while (!end) {
-                            if (color == -1) {
+                            if (color == -6L) {
                                 Timer.start()
                             }
-                            if (color != 2) {
-                                color = 2
+                            if (color != 0L) {
+                                color = 0L
                                 break
                             }
                         }
@@ -202,7 +203,7 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                 }
                 ElevatedCard(modifier = Modifier
                     .weight(1f),
-                    colors = if (color == 3) {
+                    colors = if (color == 1L) {
                         CardDefaults.cardColors(containerColor = Color.White)
                     } else {
                         CardDefaults.cardColors(containerColor = Color.Gray)
@@ -210,11 +211,11 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                     shape = CircleShape,
                     onClick = {
                         while (!end) {
-                            if (color == -1) {
+                            if (color == -6L) {
                                 Timer.start()
                             }
-                            if (color != 3) {
-                                color = 3
+                            if (color != 1L) {
+                                color = 1L
                                 break
                             }
                         }
