@@ -1,6 +1,9 @@
 package com.percolators.trailhomie
 
-class Trail(trailName:String, distanceAway:Float, aCondition:Int) {
+import android.content.ContentValues.TAG
+import android.util.Log
+
+class Trail(trailName:String, aCondition:Long, distanceAway:Float = 1f) {
 
     private val name = trailName
     private var distance = distanceAway
@@ -18,7 +21,7 @@ class Trail(trailName:String, distanceAway:Float, aCondition:Int) {
         distance = newDistance
     }
 
-    fun getCondition(): Int{
+    fun getCondition(): Long{
         return condition
     }
 }
@@ -43,4 +46,20 @@ object TrailList{
         }
         return null
     }
+
+    fun getSize() : Int{
+        return theList.size
+    }
+
+    fun flushTrails(theData:MutableList<Map<String,Any>>){
+        theList.clear()
+        for (entry in theData){
+            Log.d(TAG,"flush loop iterated")
+            val theName = entry["name"]
+            val theCondition = entry["condition"]
+            addTrail(Trail(theName.toString(),theCondition as Long))
+        }
+    }
+
+
 }

@@ -1,5 +1,8 @@
 package com.percolators.trailhomie
 
+import android.content.ContentValues
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,18 +20,29 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.tasks.await
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController){
+
+    var filterState by remember { mutableStateOf(0)}
     Scaffold(
         containerColor = Color(red = 219, green = 212, blue = 169),
         topBar = {
@@ -40,7 +54,15 @@ fun HomeScreen(navController: NavController){
                     containerColor = Color(red =0 , green = 76, blue = 70)
                 ),
                 actions = {
-                    IconButton(onClick = { /*TODO*/ }, ) {
+                    IconButton(onClick = {
+                        if (filterState == 0){
+                            filterState = 1
+                        }
+                        else{
+                            filterState = 0
+                        }
+                        }
+                    ) {
                         Icon(painter = painterResource(id = R.drawable.baseline_filter_list_24),
                             contentDescription = "Filter",
                             tint = Color.White)
@@ -52,8 +74,19 @@ fun HomeScreen(navController: NavController){
         LazyColumn(modifier = Modifier
             .padding(paddingValues)
         ) {
+            while (TrailList.getSize() != 3){
+                continue
+            }
             items(TrailList.sortedDistance()){trail->
-                TrailCard(aTrail = trail, navController)
+                if (filterState == 1){
+                    if (trail.getCondition() >= 0){
+                        TrailCard(aTrail = trail, navController)
+                    }
+                }
+                else{
+                    TrailCard(aTrail = trail, navController)
+                }
+
             }
         }
     }
