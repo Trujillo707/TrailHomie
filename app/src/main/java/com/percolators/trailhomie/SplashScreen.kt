@@ -24,7 +24,7 @@ import androidx.navigation.NavController
 @Composable
 fun SplashScreen(navController: NavController){
     Box(modifier = Modifier.fillMaxSize()){
-        //Image(painter = painterResource(id = R.drawable.sue_meg_state_park), contentDescription = "", contentScale = ContentScale.Inside)
+        Image(painter = painterResource(id = R.drawable.sue_meg_state_park), contentDescription = "", contentScale = ContentScale.Inside)
         Column ( horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxSize()){
             Spacer(modifier = Modifier.fillMaxHeight(0.10F))
             Image(modifier = Modifier.fillMaxHeight(0.25F) ,painter =painterResource(id = R.drawable.trailhomie), contentDescription = "")
