@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "624585964358",
+    "project_id": "trailhomie",
+    "storage_bucket": "trailhomie.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624585964358:android:ea6bc5002baca2e9460347",
+        "android_client_info": {
+          "package_name": "com.percolators.trailhomie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhQUASZPT41tTpMp9FparkDVrXYupUYlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

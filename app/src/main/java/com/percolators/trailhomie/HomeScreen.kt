@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -28,6 +30,7 @@ import androidx.navigation.NavController
 @Composable
 fun HomeScreen(navController: NavController){
     Scaffold(
+        containerColor = Color(red = 219, green = 212, blue = 169),
         topBar = {
             TopAppBar(
                 title = {
@@ -66,10 +69,9 @@ fun TrailCard(aTrail: Trail, navController: NavController){
             .padding(horizontal = 4.dp, vertical = 4.dp)
             .height(120.dp)
             .fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = Color(red = 212, green = 169, blue = 219 )),
         onClick = {
-            navController.navigate(NavScreen.ReportScreen.route + "/${aTrail.getName()}"){
-
-            }
+            navController.navigate(NavScreen.ReportScreen.route + "/${aTrail.getName()}")
         }
     ) {
         Row {
