@@ -27,6 +27,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.TextUnit
 
 
 var end = false
@@ -61,7 +62,8 @@ fun ReportScreen(trailToReport:String, navController: NavController) {
                     fontSize = 40.sp,
                     fontFamily = FontFamily.Monospace,
                     textAlign = TextAlign.Center,
-                    overflow = TextOverflow.Clip
+                    overflow = TextOverflow.Clip,
+                    lineHeight = 45.sp
 
             )
         }
