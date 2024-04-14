@@ -24,6 +24,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import android.os.CountDownTimer
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 
 
 var end = false
@@ -52,10 +55,14 @@ fun ReportScreen(trailToReport:String, navController: NavController) {
 
         Row(modifier = Modifier
             .align(alignment = Alignment.CenterHorizontally)
-            .weight(1.75f)) {
+            .weight(1.5f)) {
             Text(modifier = Modifier,
                     text = trailToReport,
-                    fontSize = 64.sp
+                    fontSize = 60.sp,
+                    fontFamily = FontFamily.Monospace,
+                    textAlign = TextAlign.Center,
+                    overflow = TextOverflow.Clip
+
             )
         }
 
@@ -67,16 +74,19 @@ fun ReportScreen(trailToReport:String, navController: NavController) {
                 modifier = Modifier,
                 text = "CONDITION!",
                 fontSize = 32.sp,
+                fontFamily = FontFamily.SansSerif
             )
         }
         Spacer(modifier = Modifier.weight(0.15f))
-        Row(modifier = Modifier.weight(1.5f))
+        Row(modifier = Modifier
+            .align(alignment = Alignment.CenterHorizontally)
+            .weight(1.5f))
             {
             Image(
-                painter = painterResource(R.drawable.test_yo_mama),
+                painter = painterResource(R.drawable.ground),
                 contentDescription = "trail Image",
+                contentScale = ContentScale.Fit,
                 modifier = Modifier
-                    .weight(3f)
                     .clip(CircleShape)
                 )
             }
@@ -90,6 +100,7 @@ fun ReportScreen(trailToReport:String, navController: NavController) {
                 modifier = Modifier,
                 text = "Report condition?",
                 fontSize = 26.sp,
+                fontFamily = FontFamily.Cursive
             )
         }
         Row(modifier = Modifier
@@ -118,7 +129,7 @@ fun ReportScreen(trailToReport:String, navController: NavController) {
             )
             {
                 Image(
-                    painter = painterResource(R.drawable.test_yo_mama),
+                    painter = painterResource(R.drawable.ground),
                     contentDescription = "trail Image",
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
@@ -148,7 +159,7 @@ fun ReportScreen(trailToReport:String, navController: NavController) {
             )
             {
                 Image(
-                    painter = painterResource(R.drawable.test_yo_mama),
+                    painter = painterResource(R.drawable.ground),
                     contentDescription = "trail Image",
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
@@ -178,7 +189,7 @@ fun ReportScreen(trailToReport:String, navController: NavController) {
             )
             {
                 Image(
-                    painter = painterResource(R.drawable.test_yo_mama),
+                    painter = painterResource(R.drawable.ground),
                     contentDescription = "trail Image",
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
