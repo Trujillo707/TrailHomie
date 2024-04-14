@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import android.os.CountDownTimer
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -42,168 +43,187 @@ object Timer: CountDownTimer(30000, 1000) {
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavController) {
     val theTrail = TrailList.searchByName(trailToReport)
     var color by remember { mutableIntStateOf( -1) }
 
-    Column(
-        modifier = Modifier
-            .fillMaxHeight()
-            .background(color = Color(red = 212, green = 169, blue = 219))
+    Box {
+        imageMap[trailToReport]?.let { painterResource(id = it) }
+            ?.let { Image(painter = it, contentDescription = "", contentScale = ContentScale.FillBounds) }
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
 
-    ) {
+        ) {
 
-        Row(modifier = Modifier
-            .align(alignment = Alignment.CenterHorizontally)
-            .weight(1.5f)) {
-            Text(modifier = Modifier,
+            Row(
+                modifier = Modifier
+                    .align(alignment = Alignment.CenterHorizontally)
+                    .weight(1.5f)
+            ) {
+                Text(
+                    modifier = Modifier,
                     text = trailToReport,
                     fontSize = 40.sp,
                     fontFamily = FontFamily.Monospace,
                     textAlign = TextAlign.Center,
                     overflow = TextOverflow.Clip,
-                    lineHeight = 45.sp
+                    lineHeight = 45.sp,
+                    color = Color.White
 
-            )
-        }
+                )
+            }
 
-        Row(modifier = Modifier
-            .align(alignment = Alignment.CenterHorizontally)
-            .weight(0.5f))
-            {
-            Text(
-                modifier = Modifier,
-                text = "CONDITION!",
-                fontSize = 32.sp,
-                fontFamily = FontFamily.SansSerif
-            )
-        }
-        Spacer(modifier = Modifier.weight(0.15f))
-        Row(modifier = Modifier
-            .align(alignment = Alignment.CenterHorizontally)
-            .weight(1.5f))
-            {
-            Image(
-                painter = painterResource(R.drawable.ground),
-                contentDescription = "trail Image",
-                contentScale = ContentScale.Fit,
+            Row(
                 modifier = Modifier
-                    .clip(CircleShape)
+                    .align(alignment = Alignment.CenterHorizontally)
+                    .weight(0.5f)
+            )
+            {
+                Text(
+                    modifier = Modifier,
+                    text = "CONDITION!",
+                    fontSize = 32.sp,
+                    fontFamily = FontFamily.SansSerif,
+                    color = Color.White
+
+                )
+            }
+            Spacer(modifier = Modifier.weight(0.15f))
+            Row(
+                modifier = Modifier
+                    .align(alignment = Alignment.CenterHorizontally)
+                    .weight(1.5f)
+            )
+            {
+                Image(
+                    painter = painterResource(R.drawable.ground),
+                    contentDescription = "trail Image",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .clip(CircleShape)
                 )
             }
 
-        Spacer(modifier = Modifier.weight(0.10f))
-        Row(modifier = Modifier
-            .align(alignment = Alignment.CenterHorizontally)
-            .weight(0.75f))
-        {
-            Text(
-                modifier = Modifier,
-                text = "Report condition?",
-                fontSize = 26.sp,
-                fontFamily = FontFamily.Cursive
+            Spacer(modifier = Modifier.weight(0.10f))
+            Row(
+                modifier = Modifier
+                    .align(alignment = Alignment.CenterHorizontally)
+                    .weight(0.75f)
             )
-        }
-        Row(modifier = Modifier
-            .weight(1f)
-            .align(alignment = Alignment.CenterHorizontally)
+            {
+                Text(
+                    modifier = Modifier,
+                    text = "Report condition?",
+                    fontSize = 26.sp,
+                    fontFamily = FontFamily.Cursive,
+                    color = Color.White
+
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .weight(1f)
+                    .align(alignment = Alignment.CenterHorizontally)
             ) {
-            ElevatedCard(modifier = Modifier
-                .weight(1f),
-                colors = if (color == 1) {
+                ElevatedCard(modifier = Modifier
+                    .weight(1f),
+                    colors = if (color == 1) {
                         CardDefaults.cardColors(containerColor = Color.White)
-                }else {
-                   CardDefaults.cardColors(containerColor = Color.Gray)
-                },
-                shape = CircleShape,
-                onClick = {
-                    while (!end) {
-                        if (color == -1) {
-                            Timer.start()
-                        }
-                        if (color != 1) {
-                            color = 1
-                            break
+                    } else {
+                        CardDefaults.cardColors(containerColor = Color.Gray)
+                    },
+                    shape = CircleShape,
+                    onClick = {
+                        while (!end) {
+                            if (color == -1) {
+                                Timer.start()
+                            }
+                            if (color != 1) {
+                                color = 1
+                                break
+                            }
                         }
                     }
-                }
-            )
-            {
-                Image(
-                    painter = painterResource(R.drawable.ground),
-                    contentDescription = "trail Image",
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .align(alignment = Alignment.CenterHorizontally)
                 )
-            }
-            ElevatedCard(modifier = Modifier
-                .weight(1f),
-                colors = if (color == 2) {
-                    CardDefaults.cardColors(containerColor = Color.White)
-                }else {
-                    CardDefaults.cardColors(containerColor = Color.Gray)
-                },
-                shape = CircleShape,
-                onClick = {
-                    while (!end) {
-                        if (color == -1) {
-                            Timer.start()
-                        }
-                        if (color != 2) {
-                            color = 2
-                            break
+                {
+                    Image(
+                        painter = painterResource(R.drawable.ground),
+                        contentDescription = "trail Image",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .align(alignment = Alignment.CenterHorizontally)
+                    )
+                }
+                ElevatedCard(modifier = Modifier
+                    .weight(1f),
+                    colors = if (color == 2) {
+                        CardDefaults.cardColors(containerColor = Color.White)
+                    } else {
+                        CardDefaults.cardColors(containerColor = Color.Gray)
+                    },
+                    shape = CircleShape,
+                    onClick = {
+                        while (!end) {
+                            if (color == -1) {
+                                Timer.start()
+                            }
+                            if (color != 2) {
+                                color = 2
+                                break
+                            }
                         }
                     }
-                }
-            )
-            {
-                Image(
-                    painter = painterResource(R.drawable.ground),
-                    contentDescription = "trail Image",
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .align(alignment = Alignment.CenterHorizontally)
                 )
-            }
-            ElevatedCard(modifier = Modifier
-                .weight(1f),
-                colors = if (color == 3) {
-                    CardDefaults.cardColors(containerColor = Color.White)
-                }else {
-                    CardDefaults.cardColors(containerColor = Color.Gray)
-                },
-                shape = CircleShape,
-                onClick = {
-                    while (!end) {
-                        if (color == -1) {
-                            Timer.start()
-                        }
-                        if (color != 3) {
-                            color = 3
-                            break
+                {
+                    Image(
+                        painter = painterResource(R.drawable.ground),
+                        contentDescription = "trail Image",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .align(alignment = Alignment.CenterHorizontally)
+                    )
+                }
+                ElevatedCard(modifier = Modifier
+                    .weight(1f),
+                    colors = if (color == 3) {
+                        CardDefaults.cardColors(containerColor = Color.White)
+                    } else {
+                        CardDefaults.cardColors(containerColor = Color.Gray)
+                    },
+                    shape = CircleShape,
+                    onClick = {
+                        while (!end) {
+                            if (color == -1) {
+                                Timer.start()
+                            }
+                            if (color != 3) {
+                                color = 3
+                                break
+                            }
                         }
                     }
-                }
-            )
-            {
-                Image(
-                    painter = painterResource(R.drawable.ground),
-                    contentDescription = "trail Image",
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .align(alignment = Alignment.CenterHorizontally)
+                )
+                {
+                    Image(
+                        painter = painterResource(R.drawable.ground),
+                        contentDescription = "trail Image",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .align(alignment = Alignment.CenterHorizontally)
 
                     )
                 }
 
+            }
+            Spacer(modifier = Modifier.weight(0.10f))
         }
-        Spacer(modifier = Modifier.weight(0.10f))
     }
 
 
