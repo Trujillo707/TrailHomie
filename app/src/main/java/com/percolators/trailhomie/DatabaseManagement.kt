@@ -26,7 +26,7 @@ object DatabaseManagement{
         @param trailName The name of the trail in question
         @param newCondition The new condition
      */
-    fun sendReport(trailName:String, newCondition:Int) = CoroutineScope(Dispatchers.IO).launch{
+    fun sendReport(trailName:String, newCondition:Long) = CoroutineScope(Dispatchers.IO).launch{
         val searchResult = Firebase.firestore.collection("humboldt_trails").whereEqualTo("name", trailName).get().await()
         for (currDoc in searchResult){
             val theSubmission = mutableMapOf<String,Any>()

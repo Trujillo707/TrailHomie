@@ -11,7 +11,7 @@ import androidx.navigation.navArgument
 fun Navigation() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = NavScreen.HomeScreen.route){
+    NavHost(navController = navController, startDestination = NavScreen.SplashScreen.route){
         composable(route = NavScreen.HomeScreen.route){
             HomeScreen(navController)
         }
@@ -24,6 +24,9 @@ fun Navigation() {
             backStackEntry.arguments?.getString("theTrail")
                 ?.let { backStackEntry.arguments?.getLong("trailCondition")
                     ?.let { it1 -> ReportScreen(trailToReport = it, trailCondition = it1, navController) } }
+        }
+        composable(route = NavScreen.SplashScreen.route,){
+            SplashScreen(navController)
         }
     }
 }
