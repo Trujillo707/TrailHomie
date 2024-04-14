@@ -6,7 +6,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.res.painterResource
@@ -25,11 +24,12 @@ import androidx.compose.ui.layout.ContentScale
 import android.os.CountDownTimer
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.TextUnit
-
 
 
 var end = false
@@ -48,11 +48,12 @@ object Timer: CountDownTimer(30000, 1000) {
 @Composable
 fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavController) {
     val theTrail = TrailList.searchByName(trailToReport)
+    val conditionMap = mapOf(0L to (R.drawable.mud_boot),1L to (R.drawable.flat_boot), -1L to (R.drawable.water_boot))
     var color by remember { mutableIntStateOf( -1) }
 
     Box {
         imageMap[trailToReport]?.let { painterResource(id = it) }
-            ?.let { Image(painter = it, contentDescription = "", contentScale = ContentScale.FillBounds) }
+            ?.let { Image(painter = it, contentDescription = "", contentScale = ContentScale.Crop) }
         Column(
             modifier = Modifier
                 .fillMaxHeight()
@@ -72,6 +73,8 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                     textAlign = TextAlign.Center,
                     overflow = TextOverflow.Clip,
                     lineHeight = 45.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    style = TextStyle(shadow = Shadow(color = Color.Black, blurRadius = 10f)),
                     color = Color.White
 
                 )
@@ -86,9 +89,11 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                 Text(
                     modifier = Modifier,
                     text = "CONDITION!",
-                    fontSize = 32.sp,
+                    fontSize = 28.sp,
                     fontFamily = FontFamily.SansSerif,
-                    color = Color.White
+                    color = Color.White,
+                    fontWeight = FontWeight.ExtraBold,
+                    style = TextStyle(shadow = Shadow(color = Color.Black, blurRadius = 10f)),
 
                 )
             }
@@ -100,7 +105,7 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
             )
             {
                 Image(
-                    painter = painterResource(R.drawable.ground),
+                    painter = painterResource(conditionMap[trailCondition]!!),
                     contentDescription = "trail Image",
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
@@ -118,9 +123,11 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                 Text(
                     modifier = Modifier,
                     text = "Report condition?",
-                    fontSize = 26.sp,
-                    fontFamily = FontFamily.Cursive,
-                    color = Color.White
+                    fontSize = 28.sp,
+                    fontFamily = FontFamily.SansSerif,
+                    color = Color.White,
+                    fontWeight = FontWeight.ExtraBold,
+                    style = TextStyle(shadow = Shadow(color = Color.Black, blurRadius = 10f)),
 
                 )
             }
@@ -151,7 +158,7 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                 )
                 {
                     Image(
-                        painter = painterResource(R.drawable.ground),
+                        painter = painterResource(R.drawable.water_boot), // change to water image
                         contentDescription = "trail Image",
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
@@ -181,7 +188,7 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                 )
                 {
                     Image(
-                        painter = painterResource(R.drawable.ground),
+                        painter = painterResource(R.drawable.mud_boot), //change to mud image
                         contentDescription = "trail Image",
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
@@ -211,7 +218,7 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                 )
                 {
                     Image(
-                        painter = painterResource(R.drawable.ground),
+                        painter = painterResource(R.drawable.flat_boot),
                         contentDescription = "trail Image",
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
