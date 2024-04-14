@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 
 
+
 var end = false
 object Timer: CountDownTimer(30000, 1000) {
 

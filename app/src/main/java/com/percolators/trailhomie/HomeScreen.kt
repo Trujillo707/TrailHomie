@@ -99,6 +99,7 @@ fun HomeScreen(navController: NavController){
     }
 }
 
+val imageMap = mapOf("Hammond Coastal Trail" to (R.drawable.hammond_coastal_trail))
 
 
 @OptIn(ExperimentalMaterial3Api::class)
