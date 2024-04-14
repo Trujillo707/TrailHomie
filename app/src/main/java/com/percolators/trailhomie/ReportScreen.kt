@@ -58,7 +58,7 @@ fun ReportScreen(trailToReport:String, navController: NavController) {
             .weight(1.5f)) {
             Text(modifier = Modifier,
                     text = trailToReport,
-                    fontSize = 60.sp,
+                    fontSize = 40.sp,
                     fontFamily = FontFamily.Monospace,
                     textAlign = TextAlign.Center,
                     overflow = TextOverflow.Clip
