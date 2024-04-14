@@ -39,7 +39,7 @@ fun ReportScreen(trailToReport:String, navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
-            .background(color = Color(red = 1,green = 1,blue = 99))
+            .background(color = Color(red = 212, green = 169, blue = 219 ))
 
     ) {
 
