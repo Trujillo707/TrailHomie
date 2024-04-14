@@ -24,20 +24,20 @@ class DatabaseManagement{
      * Get a map of <TrailName:String, TrailCondition:Int>. Probably use for
      * creating the list of trails later.
      */
-    fun getTrailInfo():Map<String, Int>{
-        var trails = mutableMapOf<String, Int>()
-        db.collection("humboldtTrails")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    document.data
-                    trails.put(document.get("name", String), document.get("content"))
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.e("DatabaseManagement::getTrailInfo()","Cannot access humboldtTrails", exception)
-            }
-    }
+//    fun getTrailInfo():Map<String, Int>{
+//        var trails = mutableMapOf<String, Int>()
+//        db.collection("humboldtTrails")
+//            .get()
+//            .addOnSuccessListener { result ->
+//                for (document in result) {
+//                    document.data
+//                    //trails.put(document.get("name", String), document.get("content"))
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.e("DatabaseManagement::getTrailInfo()","Cannot access humboldtTrails", exception)
+//            }
+//    }
 
     fun updateCondition(){
 
