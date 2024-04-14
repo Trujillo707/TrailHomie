@@ -5,4 +5,5 @@ package com.percolators.trailhomie
 sealed class NavScreen(val route:String) {
     object HomeScreen: NavScreen("home_screen")
     object ReportScreen: NavScreen("report_screen")
+    object SplashScreen: NavScreen("splash_screen")
 }
