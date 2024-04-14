@@ -35,6 +35,9 @@ object DatabaseManagement{
             Firebase.firestore.collection("humboldt_trails").document(currDoc.id).collection("reports").add(theSubmission)
             Log.d(TAG,"Success maybe adding -> ${theSubmission}")
         }
+
+        updateCondition(trailName)
+
     }
 
     /**
