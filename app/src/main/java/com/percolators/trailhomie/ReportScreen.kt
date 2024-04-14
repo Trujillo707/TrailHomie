@@ -33,17 +33,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 
 
-var end = false
+//var end = false
 
-object Timer: CountDownTimer(10000, 1000) {
-
-    override fun onTick(millisUntilFinished: Long) {
-    }
-
-    override fun onFinish() {
-         end = true
-    }
-}
+// The timer is very good but due to scope it cannot call the function easily
+// from how we have it structured
+//object Timer: CountDownTimer(10000, 1000) {
+//
+//    override fun onTick(millisUntilFinished: Long) {
+//    }
+//
+//    override fun onFinish() {
+//         end = true
+//    }
+//}
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,9 +57,10 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
     var hasSubmitted by remember {
         mutableIntStateOf(0)
     }
+    var end by remember{ mutableIntStateOf(0)}
 
-    if(end)
-    {DatabaseManagement.sendReport(trailToReport,color)}
+//    if(end)
+//    {DatabaseManagement.sendReport(trailToReport,color)}
 
     Box {
         imageMap[trailToReport]?.let { painterResource(id = it) }
@@ -153,18 +156,20 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                     },
                     shape = CircleShape,
                     onClick = {
-                        if (!end) {
-                            if (color == -6L) {
-                                Timer.start()
-                            }
-                            if (color != -1L) {
+                        if (end != 1) {
+//                            if (color == -6L) {
+//                                Timer.start()
+//                            }
+                            if (color != -1L ) {
                                 color = -1L
+                                DatabaseManagement.sendReport(trailToReport,color)
+                                end = 1
                             }
                         }
-                        else if(hasSubmitted == 0){
-                            DatabaseManagement.sendReport(trailToReport,color)
-                            hasSubmitted = 1
-                        }
+//                        else if(hasSubmitted == 0){
+//                            DatabaseManagement.sendReport(trailToReport,color)
+//                            hasSubmitted = 1
+//                        }
                     }
                 )
                 {
@@ -186,19 +191,20 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                     },
                     shape = CircleShape,
                     onClick = {
-                        if (!end) {
-                            if (color == -6L) {
-                                Timer.start()
-                            }
+                        if (end != 1) {
+//                            if (color == -6L) {
+//                                Timer.start()
+//                            }
                             if (color != 0L) {
                                 color = 0L
-
+                                DatabaseManagement.sendReport(trailToReport,color)
+                                end = 1
                             }
                         }
-                        else if(hasSubmitted == 0){
-                            DatabaseManagement.sendReport(trailToReport,color)
-                            hasSubmitted = 1
-                        }
+//                        else if(hasSubmitted == 0){
+//                            DatabaseManagement.sendReport(trailToReport,color)
+//                            hasSubmitted = 1
+//                        }
                     }
                 )
                 {
@@ -220,19 +226,20 @@ fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavCo
                     },
                     shape = CircleShape,
                     onClick = {
-                        if (!end) {
-                            if (color == -6L) {
-                                Timer.start()
-                            }
+                        if (end != 1) {
+//                            if (color == -6L) {
+//                                Timer.start()
+//                            }
                             if (color != 1L) {
                                 color = 1L
-
+                                DatabaseManagement.sendReport(trailToReport,color)
+                                end = 1
                             }
                         }
-                        else if(hasSubmitted == 0){
-                            DatabaseManagement.sendReport(trailToReport,color)
-                            hasSubmitted = 1
-                        }
+//                        else if(hasSubmitted == 0){
+//                            DatabaseManagement.sendReport(trailToReport,color)
+//                            hasSubmitted = 1
+//                        }
                     }
                 )
                 {
