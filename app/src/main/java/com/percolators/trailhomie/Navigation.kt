@@ -15,12 +15,15 @@ fun Navigation() {
         composable(route = NavScreen.HomeScreen.route){
             HomeScreen(navController)
         }
-        composable(route = NavScreen.ReportScreen.route + "/{theTrail}",
+        composable(route = NavScreen.ReportScreen.route + "/{theTrail}/{trailCondition}",
             arguments = listOf(navArgument("theTrail"){
                 type = NavType.StringType
-            })){backStackEntry->
+            }, navArgument("trailCondition"){
+                type = NavType.LongType
+            })){ backStackEntry->
             backStackEntry.arguments?.getString("theTrail")
-                ?.let { ReportScreen(trailToReport = it, navController) }
+                ?.let { backStackEntry.arguments?.getLong("trailCondition")
+                    ?.let { it1 -> ReportScreen(trailToReport = it, trailCondition = it1, navController) } }
         }
     }
 }

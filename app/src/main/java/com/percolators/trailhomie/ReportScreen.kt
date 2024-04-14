@@ -43,7 +43,7 @@ object Timer: CountDownTimer(30000, 1000) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReportScreen(trailToReport:String, navController: NavController) {
+fun ReportScreen(trailToReport:String, trailCondition:Long, navController: NavController) {
     val theTrail = TrailList.searchByName(trailToReport)
     var color by remember { mutableIntStateOf( -1) }
 

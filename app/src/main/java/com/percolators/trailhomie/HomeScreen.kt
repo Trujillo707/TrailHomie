@@ -111,7 +111,7 @@ fun TrailCard(aTrail: Trail, navController: NavController){
             .fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color(red = 212, green = 169, blue = 219 )),
         onClick = {
-            navController.navigate(NavScreen.ReportScreen.route + "/${aTrail.getName()}")
+            navController.navigate(NavScreen.ReportScreen.route + "/${aTrail.getName()}/${aTrail.getCondition()}")
         }
     ) {
         Row {
